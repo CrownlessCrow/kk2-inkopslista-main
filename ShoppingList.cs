@@ -86,8 +86,14 @@ class ShoppingList
 
         foreach (string line in lines)
         {
-            string[] parts = line.Split(';');
-            items.Add(new Item(parts[1], int.Parse(parts[0])));
+            string[] parts = line.Split(';'); //Dela på raden vid ; till exempel 15;Mjöl blir 2 parts "15" och "mjölk"
+            if (parts.Length != 2) //Om raden inte har exakt 2 bitar (exempel på items.ext rad 4 är tom)
+
+            {
+                continue;  //Hoppa över raden, då den läggs inte till.
+            }
+
+            items.Add(new Item(parts[1], int.Parse(parts[0]))); //Raden har 2 bitar, så varan läggs till.
         }
     }
 }
