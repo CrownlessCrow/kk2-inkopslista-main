@@ -13,7 +13,13 @@ while (true)
     Console.WriteLine("5. Avsluta");
     Console.Write("Välj: ");
 
-    int choice = int.Parse(Console.ReadLine());
+    if(!int.TryParse(Console.ReadLine(), out int choice)) //TryParse istället för Parse, så att programmt inte krasha om anv inte skriver en siffra.
+
+    {
+        Console.WriteLine("Skriva en siffra mellan 1 och 5");
+        continue;
+    }
+
 
     if (choice == 1)
     {
