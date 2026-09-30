@@ -40,7 +40,14 @@ while (true)
     else if (choice == 2)
     {
         Console.Write("Nummer: ");
-        int number = int.Parse(Console.ReadLine());
+
+        if (!int.TryParse(Console.ReadLine(), out int number)) // Numret måste vara ett heltal.
+        {
+            Console.WriteLine("Numret måste vara ett heltal");
+            continue;
+            
+        }
+        
         list.RemoveAt(number);
     }
     else if (choice == 3)
