@@ -13,11 +13,11 @@ while (true)
     Console.WriteLine("5. Avsluta");
     Console.Write("Välj: ");
 
-    if(!int.TryParse(Console.ReadLine(), out int choice)) //TryParse istället för Parse, så att programmt inte krasha om anv inte skriver en siffra.
+    if (!int.TryParse(Console.ReadLine(), out int choice)) //TryParse istället för Parse, så att programmt inte krasha om anv inte skriver en siffra.
 
     {
-        Console.WriteLine("Skriva en siffra mellan 1 och 5");
-        continue;
+        Console.WriteLine("Skriva en siffra mellan 1 och 5"); //Om det inte är tal
+        continue; //Om det inte är tal skickas tillbaka till meny 1-5
     }
 
 
@@ -26,7 +26,15 @@ while (true)
         Console.Write("Namn: ");
         string name = Console.ReadLine();
         Console.Write("Pris: ");
-        int price = int.Parse(Console.ReadLine());
+
+        if (!int.TryParse(Console.ReadLine(), out int price))    // Om priset inte är ett heltal läggs varan inte till.
+
+        {
+            Console.WriteLine("Priset måste vara ett heltal");
+            continue;
+        }
+
+
         list.Add(new Item(name, price));
     }
     else if (choice == 2)
