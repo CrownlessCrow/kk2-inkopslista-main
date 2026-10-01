@@ -17,7 +17,16 @@ class ShoppingList
     // Removes the item the user sees as number 1, 2, 3 ...
     public void RemoveAt(int number)
     {
-        items.RemoveAt(number - 1);
+       if (number < 1 || number > items.Count) // kontrollera att numret finns i listan, annars krashar item.RemoveAt om man anger högre belopp än listan.
+
+        {
+            Console.WriteLine("Det finns ingen vara med det numret");
+            return; //avbryter metoden utan att ta bort något
+        }
+       
+       
+        items.RemoveAt(number - 1); // indexet från litsan är 0, användaren är 1 så lägger till -1 för anpassar.
+  
     }
 
     // Adds up the price of every item on the list.
@@ -81,18 +90,18 @@ class ShoppingList
     // Reads the file back into the list.
     public void Load()
     {
-string [] lines = File.ReadAllLines(path);
+string [] lines = File.ReadAllLines(path); // Läser filen rad för rad och tar bort \r \n
 
         foreach (string line in lines)
         {
             string[] parts = line.Split(';'); //Dela på raden vid ; till exempel 15;Mjöl blir 2 parts "15" och "mjölk"
-            if (parts.Length != 2) //Om raden inte har exakt 2 bitar (exempel på items.ext rad 4 är tom)
+            if (parts.Length != 2) //Om raden inte har exakt 2 bitar (exempel på items.txt rad 4 är tom då rad 4 räknas som part[0])
 
             {
                 continue;  //Hoppa över raden, då den läggs inte till.
             }
 
-            items.Add(new Item(parts[1], int.Parse(parts[0]))); //Raden har 2 bitar, så varan läggs till.
+            items.Add(new Item(parts[1], int.Parse(parts[0]))); //Raden har 2 bitar, så varan läggs till. Alltså behöver part [0] och [1] för den ska köra annars krash.
         }
     }
 }
