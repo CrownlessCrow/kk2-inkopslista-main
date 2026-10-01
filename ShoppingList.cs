@@ -1,4 +1,7 @@
 // Holds the items and takes care of loading and saving them.
+using System.Data.Common;
+using System.Linq.Expressions;
+
 class ShoppingList
 {
     private List<Item> items = new List<Item>();
@@ -17,16 +20,16 @@ class ShoppingList
     // Removes the item the user sees as number 1, 2, 3 ...
     public void RemoveAt(int number)
     {
-       if (number < 1 || number > items.Count) // kontrollera att numret finns i listan, annars krashar item.RemoveAt om man anger högre belopp än listan.
+        if (number < 1 || number > items.Count) // kontrollera att numret finns i listan, annars krashar item.RemoveAt om man anger högre belopp än listan.
 
         {
             Console.WriteLine("Det finns ingen vara med det numret");
             return; //avbryter metoden utan att ta bort något
         }
-       
-       
+
+
         items.RemoveAt(number - 1); // indexet från litsan är 0, användaren är 1 så lägger till -1 för anpassar.
-  
+
     }
 
     // Adds up the price of every item on the list.
@@ -87,13 +90,26 @@ class ShoppingList
         Console.WriteLine("Listan är sparad.");
     }
 
-    // Reads the file back into the list.
+    // läser in filen till listan igen.
     public void Load()
     {
-string [] lines = File.ReadAllLines(path); // Läser filen rad för rad och tar bort \r \n
+        string[] lines; // skapas utanför try så att foreach längre ner kan använda den   
+
+            try
+            {
+                lines = File.ReadAllLines(path); //läser filen rad för rad, då jag tog bort radbrytningen för \r \n
+
+            }
+            catch (FileNotFoundException) //fångar bara felet, alltså "filen som inte finns"
+
+            {
+                Console.WriteLine("Hittade ingen sparad lista, statar med en tom lista");
+                return; // avbryter Load, programmet start emd en tom lista.
+            }
 
         foreach (string line in lines)
         {
+
             string[] parts = line.Split(';'); //Dela på raden vid ; till exempel 15;Mjöl blir 2 parts "15" och "mjölk"
             if (parts.Length != 2) //Om raden inte har exakt 2 bitar (exempel på items.txt rad 4 är tom då rad 4 räknas som part[0])
 
@@ -105,3 +121,4 @@ string [] lines = File.ReadAllLines(path); // Läser filen rad för rad och tar 
         }
     }
 }
+    
