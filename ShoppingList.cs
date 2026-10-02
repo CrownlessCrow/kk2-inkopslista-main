@@ -82,12 +82,14 @@ class ShoppingList
         try
         {
             File.WriteAllText(path, string.Join("\r\n", lines) + "\r\n");
+            Console.WriteLine("Listan är sparad."); //Skriver ut bara om sparningen lyckades.
         }
-        catch
+        catch (UnauthorizedAccessException) //fångar felfil om den är skrivskyddad.
         {
+            Console.WriteLine("Kunde inte spara listan"); //säger till användaren att den inte gick att spara
         }
 
-        Console.WriteLine("Listan är sparad.");
+
     }
 
     // läser in filen till listan igen.
@@ -95,17 +97,17 @@ class ShoppingList
     {
         string[] lines; // skapas utanför try så att foreach längre ner kan använda den   
 
-            try
-            {
-                lines = File.ReadAllLines(path); //läser filen rad för rad, då jag tog bort radbrytningen för \r \n
+        try
+        {
+            lines = File.ReadAllLines(path); //läser filen rad för rad, då jag tog bort radbrytningen för \r \n
 
-            }
-            catch (FileNotFoundException) //fångar bara felet, alltså "filen som inte finns"
+        }
+        catch (FileNotFoundException) //fångar bara felet, alltså "filen som inte finns"
 
-            {
-                Console.WriteLine("Hittade ingen sparad lista, statar med en tom lista");
-                return; // avbryter Load, programmet start emd en tom lista.
-            }
+        {
+            Console.WriteLine("Hittade ingen sparad lista, statar med en tom lista");
+            return; // avbryter Load, programmet start emd en tom lista.
+        }
 
         foreach (string line in lines)
         {
@@ -121,4 +123,3 @@ class ShoppingList
         }
     }
 }
-    
