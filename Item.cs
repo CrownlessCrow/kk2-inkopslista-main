@@ -6,6 +6,20 @@ class Item
 
     public Item(string name, int price)
     {
+        if (string.IsNullOrWhiteSpace(name)) // Tillåter inte tom sträng eller mellanslag.
+
+        {
+            throw new ArgumentException ("Namnet får inte vara tomt.");
+        }
+
+        if (price < 0) //Negativpris inte tillåtet
+        {
+            throw new ArgumentOutOfRangeException(nameof(price), "Priset får inte vara negativt");
+        }
+
+
+
+//Båda villkoren uppfyllda då sparas väderna i varan.
         Name = name;
         Price = price;
     }
