@@ -34,3 +34,22 @@
 
 **Lösning** Jag lade ReadAllLine i en try/catch som fångar "FileNotFoundException". Programmet starta då med tom listas.
 
+### Fel 5: Total summan blev fel.
+
+**Vad hände:** Totalen längst ner i listan stämde inte. Den första varan pris räknads aldrig med.
+
+**Varför:** Loopen i Total() började på i = 1 istället för i = 0. Då index listan börja alltid med 0 då blir det att första varan hoppa över om den ska börja på i = 1.
+
+**Lösning:** Jag ändrade loopen så att den började på i = 0, och då så räknade alla varor med.
+
+### Fel 6: Tom catch i Save(), dold fel
+
+***Vad hände:***  Programmet krashade inte och gick att köra osm vanligt, så felet märktes inte vid normal användning. Enligt uppgiften skulle jag lägga till en Exception.
+
+Catchen va tom, inget fel men såg på uppgiften med skulle längga någon exception
+
+**Varför:** Save() hade en tom Catch som fångade alla fel utan att göra något med de. och listan är sparad o låg efter try/catch så de skrev ut oavsett spraningen lyckades eller inte.
+
+**Lösning:**  Jag flyttade Listan är sparad in  i try-blocket så att det bara visas när sparningen lyckades. Jag ersatte den tomma catch med catch för `UnaunthorizedAcessException` då denna exception skydda på filen är skrivskyddad eller behörighet, då det skriver ut ett felmeddelande så att användaren får veta att sparningen misslyckades. 
+
+![alt text](image.png)
