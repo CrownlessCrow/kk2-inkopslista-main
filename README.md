@@ -53,3 +53,10 @@ Catchen va tom, inget fel men såg på uppgiften med skulle längga någon excep
 **Lösning:**  Jag flyttade Listan är sparad in  i try-blocket så att det bara visas när sparningen lyckades. Jag ersatte den tomma catch med catch för `UnaunthorizedAcessException` då denna exception skydda på filen är skrivskyddad eller behörighet, då det skriver ut ett felmeddelande så att användaren får veta att sparningen misslyckades. 
 
 ![alt text](image.png)
+
+# Kontrollupgift 2
+
+### Item skydda sig själv
+
+**Price:**
+**Name:**
