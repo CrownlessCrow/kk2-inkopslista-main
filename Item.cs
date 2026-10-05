@@ -14,7 +14,7 @@ class Item
 
         if (price < 0) //Negativpris inte tillåtet
         {
-            throw new ArgumentOutOfRangeException(nameof(price), "Priset får inte vara negativt");
+            throw new ArgumentOutOfRangeException(null, "Priset får inte vara negativt"); //null ? inget parameternamn, felet kasta till try/tach i Program.cs
         }
 
 

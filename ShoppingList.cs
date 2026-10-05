@@ -6,17 +6,17 @@ class ShoppingList
 {
     private List<Item> items = new List<Item>();
     private string path;
-    private int budget; // Max totalsumman för listan, beroende vad jag väljer vad budgeten ska vara. I program.cs
+    public int Budget { get; private set; } // Max totalsumman för listan, beroende vad jag väljer vad budgeten ska vara. I program.cs
 
     public ShoppingList(string path, int budget)
     {
         this.path = path;
-        this.budget = budget;
+        this.Budget = budget;
     }
 
     public bool Add(Item item)
     {
-        if (Total() + item.Price > budget) // Anropa Metoden Total() + hämtar den nya varan som tillsammans understiger Budgeten.
+        if (Total() + item.Price > Budget) // Anropa Metoden Total() + hämtar den nya varan som tillsammans understiger Budgeten.
 
         {
             return false; //Varan läggs inte till.

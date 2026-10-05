@@ -3,3 +3,4 @@
 89;Ost
 40;Apa
 10;banan
+40;äppel

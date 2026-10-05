@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 ShoppingList list = new ShoppingList("items.txt", 500);
 list.Load();
 
@@ -35,8 +37,30 @@ while (true)
         }
 
 
-        list.Add(new Item(name, price));
+        try
+        {
+
+            if (list.Add(new Item(name, price)))
+                Console.WriteLine("Varan lades till.");
+            else
+            {
+                Console.WriteLine($"Varan får inte plats i budget max {list.Budget} kr");
+            }
+
+        }
+        catch (ArgumentOutOfRangeException ex) // Negativ pris
+
+        {
+            Console.WriteLine(ex.Message);
+
+        }
+        catch (ArgumentException ex) // Tomt  namn
+
+        {
+            Console.WriteLine(ex.Message);
+        }
     }
+
     else if (choice == 2)
     {
         Console.Write("Nummer: ");
@@ -45,9 +69,9 @@ while (true)
         {
             Console.WriteLine("Numret måste vara ett heltal");
             continue;
-            
+
         }
-        
+
         list.RemoveAt(number);
     }
     else if (choice == 3)
