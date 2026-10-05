@@ -1,6 +1,7 @@
 // Holds the items and takes care of loading and saving them.
 using System.Data.Common;
 using System.Linq.Expressions;
+using System.Runtime.InteropServices;
 
 class ShoppingList
 {
@@ -128,7 +129,29 @@ class ShoppingList
                 continue;  //Hoppa över raden, då den läggs inte till.
             }
 
-            items.Add(new Item(parts[1], int.Parse(parts[0]))); //Raden har 2 bitar, så varan läggs till. Alltså behöver part [0] och [1] för den ska köra annars krash.
+
+            if (!int.TryParse(parts[0], out int price)) // priset i filen är inte ett tal, ! om inte det går att göra om till ett tal gå in i kod blocken.
+            {
+                // gick inte t.ex "Hej" så raden kan inte bli en vara.
+                Console.WriteLine($"Hoppade över ogilltig rad: {line}"); //visa vilken rad som varan va fel.
+                continue; //gå vidare till nästa rad i filen.
+            }
+
+
+            try //kontroll 2, gokänner item varan?
+            {
+                items.Add(new Item(parts[1], price)); //skapar varan o lägger den i listan.
+            }
+
+            catch (ArgumentException) //item sa nej, tomt namn eller negativ pris
+
+            {
+                Console.WriteLine($"Hoppade över ogilltig rad: {line}"); //visar vilken rad som var fel.
+            }
+
+
+
+            //items.Add(new Item(parts[1], int.Parse(parts[0]))); //Raden har 2 bitar, så varan läggs till. Alltså behöver part [0] och [1] för den ska köra annars krash.
         }
     }
 }

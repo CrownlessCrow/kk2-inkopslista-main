@@ -4,3 +4,4 @@
 40;Apa
 10;banan
 40;äppel
+-5;Mjölk
