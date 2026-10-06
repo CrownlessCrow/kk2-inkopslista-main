@@ -58,5 +58,10 @@ Catchen va tom, inget fel men såg på uppgiften med skulle längga någon excep
 
 ### Item skydda sig själv
 
-**Price:**
-**Name:**
+
+Konstruktorn i `Item` kontrollerar värdena innan de sparas:
+
+- **Tomt namn:** `string.IsNullOrWhiteSpace(name)` kastar `ArgumentException`. Fångar både tom text och bara mellanslag.
+- **Negativt pris:** `price < 0` kastar `ArgumentOutOfRangeException`.
+
+Om något är fel kastas undantaget och ingen vara skapas. `Program.cs` fångar undantagen med `try`/`catch` och skriver ut `ex.Message`, så användaren får veta vad som var fel och programmet fortsätter. `Load()` fångar samma undantag, så att en trasig rad i `items.txt` hoppas över i stället för att krascha programmet vid start.

@@ -26,35 +26,35 @@ while (true)
     if (choice == 1)
     {
         Console.Write("Namn: ");
-        string name = Console.ReadLine();
-        Console.Write("Pris: ");
+        string name = Console.ReadLine(); //Läser namnet.
+        Console.Write("Pris: "); //kolla om priset är ett heltal
 
         if (!int.TryParse(Console.ReadLine(), out int price))    // Om priset inte är ett heltal läggs varan inte till.
 
         {
-            Console.WriteLine("Priset måste vara ett heltal");
-            continue;
+            Console.WriteLine("Priset måste vara ett heltal"); 
+            continue; //tillbaka till menyn.
         }
 
 
-        try
+        try //item kan kasta undantag om namn eller pris är ogiltig.
         {
 
-            if (list.Add(new Item(name, price)))
-                Console.WriteLine("Varan lades till.");
+            if (list.Add(new Item(name, price))) //add returnera false om budgeten är spräckt.
+                Console.WriteLine("Varan lades till."); 
             else
             {
                 Console.WriteLine($"Varan får inte plats i budget max {list.Budget} kr");
             }
 
         }
-        catch (ArgumentOutOfRangeException ex) // Negativ pris
+        catch (ArgumentOutOfRangeException ex) // Negativ pris från item.cs
 
         {
             Console.WriteLine(ex.Message);
 
         }
-        catch (ArgumentException ex) // Tomt  namn
+        catch (ArgumentException ex) // fångar tomt namn från item.cs
 
         {
             Console.WriteLine(ex.Message);
