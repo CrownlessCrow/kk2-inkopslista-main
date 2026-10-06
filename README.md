@@ -65,3 +65,15 @@ Konstruktorn i `Item` kontrollerar värdena innan de sparas:
 - **Negativt pris:** `price < 0` kastar `ArgumentOutOfRangeException`.
 
 Om något är fel kastas undantaget och ingen vara skapas. `Program.cs` fångar undantagen med `try`/`catch` och skriver ut `ex.Message`, så användaren får veta vad som var fel och programmet fortsätter. `Load()` fångar samma undantag, så att en trasig rad i `items.txt` hoppas över i stället för att krascha programmet vid start.
+
+### Budget tak
+
+`ShoppingList` har en `Budget` som sätts i konstruktorn där jag har valt 500kr `ShoppingList list = new ShoppingList("items.txt", 500);` som ligger i `Program.cs`. Innan en vara läggs till kollar `Add` om Total() + `item.Price` skulle bli större än budgeten. I såfall läggs varan inte till. 
+
+### Designval
+
+När en vara inte får plats i budgeten returnerar `Add` värdet `false`. Jag valde det i stället för att kasta ett undantag.
+
+**Varför:** Att pengarna inte räcker är inget fel i programmet, det är något som händer ofta när man handlar. Undantag använder jag för saker som är fel, till exempel en vara med negativt pris. Därför kastar `Item` undantag, men `Add` svarar bara `false`.
+
+**Vad Program.cs gör med svaret:** `Program.cs` kollar svaret från `Add` med `if`/`else`. Om svaret är `true` skrivs "Varan lades till". Om svaret är `false` skrivs "Varan får inte plats i budget".
