@@ -77,3 +77,54 @@ När en vara inte får plats i budgeten returnerar `Add` värdet `false`. Jag va
 **Varför:** Att pengarna inte räcker är inget fel i programmet, det är något som händer ofta när man handlar. Undantag använder jag för saker som är fel, till exempel en vara med negativt pris. Därför kastar `Item` undantag, men `Add` svarar bara `false`.
 
 **Vad Program.cs gör med svaret:** `Program.cs` kollar svaret från `Add` med `if`/`else`. Om svaret är `true` skrivs "Varan lades till". Om svaret är `false` skrivs "Varan får inte plats i budget".
+
+## Designval
+
+`Add` returnerar en `bool`. Den svarar `true` om varan får plats i budgeten och läggs till, och `false` om varan inte får plats. Jag valde att svara `false` i stället för att kasta ett undantag när budgeten spräcks.
+
+**Varför:** Att pengarna inte räcker är inget fel i programmet, det är något som händer ofta när man handlar. Undantag använder jag för saker som är fel, till exempel en vara med negativt pris. Därför kastar `Item` undantag, men `Add` svarar bara `false`.
+
+**Vad Program.cs gör med svaret:** `Program.cs` kollar svaret från `Add` med `if`/`else`. Om svaret är `true` skrivs "Varan lades till". Om svaret är `false` skrivs "Varan får inte plats i budget".
+
+## Klassdiagram
+
+
+```mermaid
+
+classDiagram
+
+    class Program {
+        +Main()
+
+    }
+
+class ShoppingList {
+    -List~Item~ items
+    -string path
+    +int Budget
+    +ShoppingList(string path, int budget)
+    +bool Add(Item item)
+    +void RemoveAt(int number)
+    +int Total()
+    +Item Find(string name)
+    +void Print()
+    +void Save()
+    +void Load()
+}
+    
+class Item {
+
++string Name
++int Price
++Item(string name, int price)
++string ToString()
+
+}
+
+Program --> ShoppingList : använder
+Program ..> Item : skapar
+ShoppingList "1" --> "*" Item : innehåller
+
+```
+
+
