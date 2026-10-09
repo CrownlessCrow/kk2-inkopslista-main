@@ -24,6 +24,7 @@ class ShoppingList
         }
 
         items.Add(item); //Om villkoren är falsk så längger den till item då den får plats
+
         return true;
     }
 
@@ -54,6 +55,13 @@ class ShoppingList
 
         return sum;
     }
+
+public int Remaining () // Räknar ut hur mycket av budgeten som finns kvar: budgeten minus det som redan finns i listan.
+
+    {
+        return Budget - Total();
+    }
+
 
     // Looks up an item by its name. Returns null if there is no such item.
     public Item Find(string name)

@@ -70,6 +70,8 @@ Om något är fel kastas undantaget och ingen vara skapas. `Program.cs` fångar 
 
 `ShoppingList` har en `Budget` som sätts i konstruktorn där jag har valt 500kr `ShoppingList list = new ShoppingList("items.txt", 500);` som ligger i `Program.cs`. Innan en vara läggs till kollar `Add` om Total() + `item.Price` skulle bli större än budgeten. I såfall läggs varan inte till. 
 
+Samt lagt till: så att det visas också budgeten och hur mycket som finns kvar. Det räknas ut av metoden `Remaining()`, som returnerar `Budget - Total()`.
+
 
 ## Designval
 
@@ -99,6 +101,7 @@ class ShoppingList {
     +bool Add(Item item)
     +void RemoveAt(int number)
     +int Total()
+    +int Remaining()
     +Item Find(string name)
     +void Print()
     +void Save()

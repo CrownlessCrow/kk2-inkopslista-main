@@ -41,10 +41,18 @@ while (true)
         {
 
             if (list.Add(new Item(name, price))) //add returnera false om budgeten är spräckt.
-                Console.WriteLine("Varan lades till."); 
+               {
+                Console.WriteLine("Varan lades till.");
+                
+                
+                Console.WriteLine($"Budget: {list.Budget} kr. Kvar: {list.Remaining()} kr."); 
+                // Visar budgeten och vad som är kvar efter köpet.
+               }
             else
             {
                 Console.WriteLine($"Varan får inte plats i budget max {list.Budget} kr");
+                Console.WriteLine($"Du har {list.Remaining()} kr kvar.");
+                // Visar hur mycket som finns kvar, så användaren vet vad som får plats.
             }
 
         }
